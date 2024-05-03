@@ -27,7 +27,6 @@ export const ApiCall = async (
     console.log(res,"res,res.......")
 
     return {
-      all:res,
       status: res?.status,
       data: res.data,
       message: res.data?.msg || "",

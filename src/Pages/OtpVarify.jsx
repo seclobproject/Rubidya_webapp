@@ -3,8 +3,72 @@ import rubLogo from "../assets/Images/applogo.svg";
 import rubText from "../assets/Images/Name.svg";
 import OTPInput from "react-otp-input";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { ApiCall } from "../Services/Api";
+import { forgotPasswordOtpUrl, verifyOtpUrl } from "../Utils/Constants";
+import { useNavigate } from "react-router-dom";
+import {ClipLoader} from "react-spinners"
 const OtpVarify = () => {
     const [OTP,setOtp]=useState("")
+    const navigate=useNavigate()
+    const [isLoading,setIsLoading]=useState(false)
+    let userEmail=sessionStorage.getItem("userEmail")
+    console.log(userEmail);
+
+    const handleSubmit=async(e)=>{
+      e.preventDefault()
+      console.log("clicked");
+      if (OTP.length<4) {
+        toast("Fill the OTP")
+        return;
+      }
+     if (userEmail) {
+      try {
+        setIsLoading(true)
+        const respose=await ApiCall("post",forgotPasswordOtpUrl,{
+          email:userEmail,
+          OTP:OTP
+        })
+
+        if (respose?.response?.data?.message==="Invalid OTP code passed!") {
+          toast.error("Invalid OTP")
+          return;
+        }
+        if (respose?.data?.sts==="01") {
+          sessionStorage.setItem("userEmail",userEmail)
+          toast.success("Reset your password")
+          navigate("/resetpassword")
+        }
+        setIsLoading(false)
+        console.log(respose)
+      } catch (error) {
+        setIsLoading(false)
+        toast.error("failed")
+        console.log(error);
+      }finally{
+        setIsLoading(false)
+      }
+     } else {
+      try {
+        setIsLoading(true)
+        let id=sessionStorage.getItem("userId");
+        const response=await ApiCall("post",verifyOtpUrl,{
+          userId:id,
+          OTP:OTP,
+        })
+        if (response?.data?.sts==="01") {
+          toast.success("OTP verified")
+          navigate("/home")
+        }
+        setIsLoading(false)
+        console.log(response);
+      } catch (error) { 
+        setIsLoading(false)
+        console.log(error);
+        toast.error("Failed")
+      }
+     }
+    }
   return (
     <div className="w-full h-[100vh] flex flex-col-reverse gap-4 lg:gap-0 lg:flex-row justify-center">
       <div className="lg:w-[50%] flex justify-center items-center">
@@ -19,7 +83,7 @@ const OtpVarify = () => {
                 OTP verification
               </div>
               <div className="text-[#1e3167]">
-              A 6 digit code has been sent to your Email...
+              A 6 digit code has been sent to your Email or Phone number
               </div>
             </div>
             
@@ -47,9 +111,9 @@ const OtpVarify = () => {
               />
             
               </div>
-             <form action="">
+             <form action="" onSubmit={handleSubmit} >
              <div className="w-[99%] lg:w-96 h-10 rounded-md bg-blue-700 text-white">
-              <button className="w-full h-full text-lg">Submit</button>
+              <button className="w-full h-full text-lg" onClick={handleSubmit} disabled={isLoading}>{isLoading?<ClipLoader color="white" size={20}/>:"Submit"}</button>
             </div>
              </form>
            
