@@ -8,11 +8,13 @@ import OtpVarify from './Pages/OtpVarify'
 import { Toaster } from 'react-hot-toast'
 import ResetPassword from './Pages/ResetPassword'
 import Home from './Pages/Home'
-
+import Navbar from './Components/Navbar'
+import './App.css'
+import Outletconnection from './Outletconnection'
 
 const App = () => {
   return (
-    <div className='w-full h-full font-poppins'>
+    <div className='w-full h-screen font-poppins'>
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<GetStarted />}/>
@@ -23,8 +25,11 @@ const App = () => {
         <Route path='/forgotpassword' element={<ForgotPassword/>}/>
         <Route path='/verify' element={<OtpVarify/>}/>
         <Route path='/resetpassword' element={<ResetPassword/>}/>
-        <Route path='/home' element={<Home/>}/>
         
+        <Route element={<Outletconnection />}>
+          <Route path="/home" element={<Home />} />
+
+        </Route>
       </Routes>
       <Toaster/>
       </BrowserRouter>

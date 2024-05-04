@@ -11,7 +11,7 @@ export const ApiCall = async (
 ) => {
 
   try {
-    let token = localStorage.getItem("User");
+    let token = sessionStorage.getItem("User");
 
     const res = await axios({
       method: method,
@@ -24,7 +24,7 @@ export const ApiCall = async (
       },
 
     });
-    console.log(res,"res,res.......")
+    // console.log(res,"res,res.......")
 
     return {
       status: res?.status,

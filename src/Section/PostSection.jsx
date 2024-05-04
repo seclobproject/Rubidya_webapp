@@ -1,24 +1,13 @@
 import React from 'react'
 import SinglePostCard from '../Components/SinglePostCard'
 
-const PostSection = () => {
+const PostSection = ({postData}) => {
   return (
-    <div className='grid grid-cols-3 gap-2 '>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
-      <SinglePostCard/>
+    <div className='grid grid-cols-3 gap-2 pb-32 '>
+      {postData && postData.map((single,index)=>{
+        return <SinglePostCard data={single} key={index}/>
+      })}
+      
      </div>
   )
 }
