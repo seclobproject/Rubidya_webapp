@@ -6,114 +6,133 @@ import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
+
+import userIcon from "../assets/img/user.svg";
+import phoneIcon from "../assets/img/phone.svg";
+import mailIcon from "../assets/img/mail.svg";
+import confirmIcon from "../assets/img/confirm.svg";
+import lockIcon from "../assets/img/lock.svg";
 
 import { ApiCall } from "../Services/Api";
 import { userloginUrl } from "../Utils/Constants";
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
-  const navigate=useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setIsVisible((prev) => !prev);
   };
-  
-  const loginHandler=async(e)=>{
+
+  const loginHandler = async (e) => {
     e.preventDefault();
-    if ([email,password].some((field)=>field.trim()==="")) {
+    // console.log(email,password);
+    if ([email, password].some((field) => field.trim() === "")) {
       toast("Please fill in both email and password fields");
       return;
     }
-     try {
-      const response=await ApiCall("post",userloginUrl,{email,password})
-     } catch (error) {
-      toast.error("Login Failed")
-      console.log("error occured at login handler",error)
-     }
-     setEmail("")
-     setPassword("")
-  }
+    try {
+      setIsLoading(true);
+
+      const response = await ApiCall("post", userloginUrl, { email, password });
+
+      console.log(response);
+
+      if (response?.status === 200) {
+        sessionStorage.setItem("accessToken", response?.data?.access_token);
+
+        if (response?.data?.isOTPVerified) {
+          toast.success("Logined successfully");
+          navigate("/home");
+        } else {
+          sessionStorage.setItem("userId", response?.data?._id);
+          toast.success("Verification OTP sent ");
+          navigate("/verify");
+        }
+      }
+      if (response?.response?.status === 401) {
+        toast.error("Login failed");
+        return;
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast.error("Login Failed");
+      setIsLoading(false);
+      // console.log("error occured at login handler",error)
+    } finally {
+      setIsLoading(false);
+      setEmail("");
+      setPassword("");
+    }
+  };
 
   return (
-    <div className="w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-center lg:items-center">
-      <div className="lg:w-[50%] h-full flex justify-center items-center ">
-        <div className=" rounded-md p-2 lg:p-8 lg:bg-[#e9edf4] flex flex-col lg:gap-4">
-          <div className="hidden lg:flex flex-col items-center -space-y-2.5">
-            <img src={rubLogo} alt="" className="lg:w-36"/>
-            <img src={rubText} alt="" className="lg:w-52"/>
+    
+    <div className="w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-start lg:items-center font-poppins">
+      <div className="h-[67%] lg:h-[100vh] lg:w-[50%]">
+      <div className=" rounded-md p-2 lg:p-8  flex flex-col h-full  justify-center items-center lg:gap-4">
+          <div className="hidden lg:flex flex-col items-center  -space-y-2.5">
+          <img src={rubLogo} alt="" className="lg:w-36" />
+            <img src={rubText} alt="" className="lg:w-52" />
           </div>
-          <form onSubmit={loginHandler} className="flex flex-col gap-6">
-            <div className="px-5 relative flex flex-row rounded-md border border-slate-500 w-[99%] lg:w-96 h-12 items-center">
+          <div className="text-center text-4xl font pb-4 lg:pb-0 lg:py-4">
+            Welcome Back
+          </div>
+          <form onSubmit={loginHandler} className="flex flex-col w-fit gap-1  items-center">
+            <div className="px-5 mb-2 lg:mb-3 flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
+            <img src={userIcon} alt="" className="pr-3" />
               <input
                 type="text"
                 required
-                className="outline-none border-none bg-transparent w-60 lg:w-72 h-full"
-                placeholder="Enter your email.."
+                className=" outline-none border-none bg-transparent w-60 lg:w-72 h-full placeholder:text-sm lg:placeholder:text-base"
+                placeholder="Enter your Email or Mobile number"
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
               />
-              <FaUser
-                style={{
-                  position: "absolute",
-                  right: "30px",
-                  color: "#427BBD",
-                }}
-              />
+              
             </div>
-            <div className="px-5 relative flex flex-row rounded-md border border-slate-500 w-[99%] lg:w-96 h-12 items-center">
+            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
+            {isVisible ? (
+                <img src={userIcon} alt="" className="pr-3" />
+              ) : (
+                <img src={userIcon} alt="" className="pr-3" />
+              )}
               <input
               required
                 type={isVisible ? "text" : "password"}
-                className="outline-none border-none bg-transparent w-60 lg:w-72 h-full"
-                placeholder="Enter your password.."
+                className="outline-none border-none bg-transparent w-60 lg:w-72 h-full placeholder:text-sm lg:placeholder:text-base"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
               />
-              {isVisible ? (
-                <FaEyeSlash
-                  onClick={togglePasswordVisibility}
-                  style={{
-                    position: "absolute",
-                    right: "30px",
-                    color: "#427BBD",
-                  }}
-                />
-              ) : (
-                <FaEye
-                  onClick={togglePasswordVisibility}
-                  style={{
-                    position: "absolute",
-                    right: "30px",
-                    color: "#427BBD",
-                  }}
-                />
-              )}
             </div>
-            <div className="w-[99%] lg:w-96 h-8 rounded-md bg-blue-700 text-white">
-              <button className="w-full h-full" onClick={loginHandler}>Login</button>
-            </div>
-            <div className="w-full lg:w-96 h-8">
-              <button className="w-full h-full text-blue-400" onClick={()=>navigate("/forgotpassword")}>
+            <div className="flex w-full  justify-end text-xs lg:text-sm"> <button className=" text-[#427BBD]" onClick={()=>navigate("/forgotpassword")}>
                 Forgot Your Password
-              </button>
+              </button></div>
+            <div className="w-78 mt-5 lg:mt-8 lg:w-96 h-10 lg:h-12 rounded-md bg-[#184AC0] text-white">
+              <button className="w-full h-full font-semibold text-sm lg:text-base" onClick={loginHandler}>{isLoading?<ClipLoader color="white" size={20}/>:"Login"}</button>
             </div>
-            <div className="text-center my-1 lg:my-2">
+            
+            <div className="text-center my-1 lg:my-2 w-full">
               <div className="flex items-center justify-center">
                 <hr className="flex-grow border-solid border border-slate-500" />
                 <div className="px-2">OR</div>
                 <hr className="flex-grow border-solid border border-slate-500" />
               </div>
             </div>
-            <div className=" w-[99%] lg:w-96 h-8 rounded-md bg-blue-700 text-white">
-              <button className="w-full h-full text-white rounded-md" style={{background:"rgb(59,89,152)"}} onClick={()=>navigate("/signup")}>CREATE AN ACCOUNT</button>
+            <div className="w-78  lg:w-96 h-10 rounded-md bg-[#315280] text-white font-semibold text-sm">
+              <button className="w-full h-full  rounded-lg text-sm lg:text-base" style={{background:"rgb(59,89,152)"}} onClick={()=>navigate("/signup")}>Create an account</button>
             </div>
           </form>
         </div>
       </div>
-      <div className="lg:w-[50%] lg:h-full flex justify-center items-center">
-        <img src={logImg} alt="" className="lg:w-[80%]" />
+      <div className="h-[33%] lg:h-[100vh] lg:w-[50%]  bg-[#407BFF] bg-opacity-0 lg:bg-opacity-20 flex justify-center items-center">
+        <img src={logImg} alt="" className=" w-[230px]  lg:w-96" />
       </div>
     </div>
   );
