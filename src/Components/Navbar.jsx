@@ -34,7 +34,7 @@ const Navbar = () => {
       </div>
       <div className=" flex flex-row">
         <div className="w-20 h-full flex justify-center">
-          <img src={usersIcon} alt="" className="w-[53px] h-[35px]" />
+          <img src={usersIcon} alt="" className="w-[30px] h-[30px]" />
         </div>
         <div className="w-20 h-full flex justify-center">
           <img src={chatIcon} alt="" className="w-7 h-7" />

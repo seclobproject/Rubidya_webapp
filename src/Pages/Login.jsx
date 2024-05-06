@@ -10,9 +10,6 @@ import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 
 import userIcon from "../assets/img/user.svg";
-import phoneIcon from "../assets/img/phone.svg";
-import mailIcon from "../assets/img/mail.svg";
-import confirmIcon from "../assets/img/confirm.svg";
 import lockIcon from "../assets/img/lock.svg";
 
 import { ApiCall } from "../Services/Api";
@@ -83,7 +80,7 @@ const Login = () => {
           <div className="text-center text-4xl font pb-4 lg:pb-0 lg:py-4">
             Welcome Back
           </div>
-          <form onSubmit={loginHandler} className="flex flex-col w-fit gap-1  items-center">
+          <div  className="flex flex-col w-fit gap-1  items-center">
             <div className="px-5 mb-2 lg:mb-3 flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
             <img src={userIcon} alt="" className="pr-3" />
               <input
@@ -141,7 +138,7 @@ const Login = () => {
             <div className="w-78  lg:w-96 h-10 rounded-md bg-[#315280] text-white font-semibold text-sm">
               <button className="w-full h-full  rounded-lg text-sm lg:text-base" style={{background:"rgb(59,89,152)"}} onClick={()=>navigate("/signup")}>Create an account</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <div className="h-[33%] lg:h-[100vh] lg:w-[50%]  bg-[#407BFF] bg-opacity-0 lg:bg-opacity-20 flex justify-center items-center">

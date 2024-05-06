@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SinglePost from "../Components/SinglePost";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ApiCall } from "../Services/Api";
@@ -6,34 +6,51 @@ import { getLatestPosts } from "../Utils/Constants";
 
 const PostPage = () => {
   const [latestPosts, setLatestPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
+  let uniqueIds = useMemo(() => new Set(), []);
   const [page, setPage] = useState(1);
   const fetchPosts = async (pageNumber) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await ApiCall("get", `${getLatestPosts}?page=${pageNumber}`);
       if (response?.data?.status === "01") {
-        setLatestPosts((prev) => [...prev, ...response?.data?.posts]);
+     
+
+let uniqueData = response?.data?.posts.filter(item => {
+    // Check if the ID is already in the Set
+    if (uniqueIds.has(item._id)) {
+        // If it's a duplicate, return false to filter it out
+        return false;
+    } else {
+        // If it's not a duplicate, add its ID to the Set and return true to keep it
+        uniqueIds.add(item._id);
+        return true;
+    }
+});
+        setLatestPosts((prev) => [...prev, ...uniqueData]);
+
         setPage(pageNumber + 1);
-        setIsLoading(false);
+        // setIsLoading(false);
         if (latestPosts.length >= response?.data?.postCount) {
           setHasMore(false);
         }
       }
       console.log(response?.data?.posts)
-      console.log(latestPosts);
+      // console.log(latestPosts);
     } catch (error) {
-      setIsLoading(false);
+      // setIsLoading(false);
       console.log(error);
     }
   };
   useEffect(() => {
     fetchPosts(page);
+    return ()=>{
+      window.scrollTo(0,0)
+    } 
   }, []);
   return (
-    <div className="">
+    <div className="h-full">
       <InfiniteScroll
         dataLength={latestPosts.length}
         next={()=>fetchPosts(page)}

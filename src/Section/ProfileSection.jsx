@@ -2,10 +2,13 @@ import profilePicMain from "../assets/img/profilePicMain.png";
 import arrowIcon from "../assets/img/arrow.png";
 import moreIcon from "../assets/img/more.png";
 import userIcon from "../assets/img/user.png";
-const ProfileSection = ({setSelectedBut,profileData,postCount,profilePic}) => {
+import { useSelector } from "react-redux";
+const ProfileSection = ({setSelectedBut,postCount,profilePic}) => {
+
+  const profileData=useSelector(state=>state.userProfile)
   
   return (
-    <div className="w-full h-fit bg-[#EAEEF4] rounded-t-2xl flex flex-col p-4 font-poppins">
+    <div className="w-full h-  flex flex-col p-4 font-poppins">
       <div className="flex w-full justify-between">
         <div className="w-8 h-8 rounded-full border flex justify-center items-center bg-gradient-to-t from-[#04477039]  to-[#d6eee13f]">
           <img src={arrowIcon} alt="" className="w-[13px] h-[11px]" />
@@ -15,7 +18,7 @@ const ProfileSection = ({setSelectedBut,profileData,postCount,profilePic}) => {
         </div>
       </div>
       <div className="flex flex-row justify-between pt-6">
-        <div className="w-[86px] h-[86px] rounded-full">
+        <div className="pt- w-[86px] h-[86px] rounded-full">
           <img src={profilePic} alt="" className="w-full h-full rounded-full" />
         </div>
         <div className="flex flex-row gap-[30px] pt-4 pr-4">
@@ -35,10 +38,10 @@ const ProfileSection = ({setSelectedBut,profileData,postCount,profilePic}) => {
       </div>
       <div className="flex flex-col gap-[1px]">
         <div className="flex flex-col items-start gap-[1px] ">
-            <div className="font-medium text-sm text-[#1E3167] flex">{profileData?.firstName} {profileData?.lastName}</div>
+            <div className="font-medium text-sm text-[#1E3167] flex pt-2">{profileData?.firstName} {profileData?.lastName}</div>
             <div className="text-xxs2 text-[#1E3167]">{profileData?.profession}</div>
         </div>
-        <div className="text-xxs2 flex-grow w-[50%] text-[#1E3167] ">
+        <div className="text-xxs2 flex justify-start w-full  text-[#1E3167] ">
             <div className="">{(profileData?.bio)}</div>
         </div>
       </div>
