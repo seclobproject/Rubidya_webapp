@@ -12,4 +12,6 @@ export const followUser="/api/users/follow"
 export const unFollowUser="/api/users/unfollow"
 export const getProfilePic="/api/users/get-profile-pic"
 export const likeAPost="/api/posts/like"
+export const uploadImage="/api/users/upload-image"
+
 

@@ -15,9 +15,9 @@ const Home = () => {
    
   },[])
   return (
-    <div className='h-full  flex flex-col  mt-[58px]   overflow-hidden'>
+    <div className='h-full flex flex-col  lg:mt-[60px] '>
       <div className='flex justify-center'><SuggestionSection/></div>
-    <div className='w-full flex justify-center mt-2'><PostPage/></div>
+    <div className='w-full flex justify-center mt-2 h-full'><PostPage/></div>
     
     </div>
   )

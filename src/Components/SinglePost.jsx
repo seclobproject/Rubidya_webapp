@@ -8,15 +8,25 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { ApiCall } from "../Services/Api"
 import { likeAPost } from "../Utils/Constants"
-
+import './SinglePost.css'
 
 const SinglePost = ({postData}) => {
   const [timeDifference,setTimeDifference]=useState()
   const [liked,setLiked]=useState(false)
+  const [animateLiked,setAnimatedLike]=useState(false)
   const userId=useSelector(state=>state?.userProfile?._id)
 
-
+  const handleDoubleLike=async()=>{
+    setAnimatedLike(true)
+    setTimeout(() => {
+      setAnimatedLike(false)
+    }, 1000);
+   if (!liked) {
+    handleLike()
+   }
+  }
   const handleLike=async()=>{
+   
     try {
       console.log("hitted like")
       const response=await ApiCall("post",likeAPost,{
@@ -24,13 +34,20 @@ const SinglePost = ({postData}) => {
       })
       console.log("after");
       console.log(response)
-      if (response?.data?.sts==="01") {
+      if (response?.data?.status==="01") {
+        if (liked) {
+          postData.likeCount-=1
+        }else{
+          postData.likeCount+=1
+        }
+        setLiked(!liked)
         
-        setLiked(true)
       }
     } catch (error) {
       console.log(error);
     }
+    
+
   }
 
   useEffect(()=>{
@@ -72,23 +89,24 @@ const SinglePost = ({postData}) => {
 
   },[])
   return (
-    <div className='w-[525px] h-fit bg-white py-[22px] px-5 flex items-start justify-center rounded-xl'  style={{boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'}}>
+    <div className='w-full lg:w-[525px] h-fit bg-white py-[22px] px-1 lg:px-5 flex items-start justify-center rounded-xl'  style={{boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'}}>
       <div className='flex flex-col h-fit w-full gap-2.5 bg--400'>
         <div className='flex flex-row gap-[7px] '>
             <div>
-                <img src={postData?.profilePic} alt=""  className="w-[50px] h-[50px] rounded-full" />
+                <img src={postData?.profilePic} alt=""  className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full" />
             </div>
             <div className="flex flex-col items-start">
                 <div className="font-semibold text-[#1E3167]">{postData?.username}</div>
                 <div className="text-[#707070] text-xs">{timeDifference } ago</div>
             </div>
         </div>
-        <div className="w-full h-full ">
-            <img src={postData?.filePath} alt="" className="w-full h-full rounded-2xl" />
+        <div className="w-full h-full post ">
+            <img src={postData?.filePath} alt="" className={`w-full h-full rounded-2xl ${animateLiked ? "liked":""} `} onDoubleClick={handleDoubleLike} />
+            {animateLiked && <div className="heart-animation">&#10084;</div>}
         </div>
         <div className="flex gap-4 items-center">
             {
-              liked? <img src={likedIcon} alt="" className="w-[26px] h-[23px] cursor-pointer" />:<img src={likeIcon} alt="" className="w-[26px] h-[23px] cursor-pointer" onClick={handleLike} />
+              liked? <img src={likedIcon} alt="" className="w-[26px] h-[23px] cursor-pointer" onClick={handleLike} />:<img src={likeIcon} alt="" className="w-[26px] h-[23px] cursor-pointer" onClick={handleLike} />
             }
            
             
@@ -97,9 +115,9 @@ const SinglePost = ({postData}) => {
             <img src={bookmarkIcon} alt="" className="w-[20px] h-[25px] cursor-pointer" />
             
         </div>
-        <div className="flex flex-col items-start  text-sm">
+        <div className="flex flex-col items-start  text-sm w-full">
            {postData?.likeCount>1 && <div className="mb-[3px]">Liked by <span className="font-semibold">{postData?.lastLikedUserName}</span> {postData?.likeCount>1 && <span>and {postData?.likeCount-1} Others </span>}</div>}
-           {postData?.description && <span className="mb-[3px]  text-start"><span className="font-semibold">{postData?.username} </span>{postData?.description} </span>}
+           {postData?.description && <span className="mb-[3px]  text-start w-full flex flex-wrap"><span className="font-semibold">{postData?.username} </span><span className="flex flex-wrap">{postData?.description} </span></span>}
             {postData?.commentCount>0 && <div className="text-[#7E7C7C]">View all {postData?.commentCount} comments</div>}
         </div>
       </div>

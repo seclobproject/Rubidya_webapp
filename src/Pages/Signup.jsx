@@ -82,7 +82,7 @@ const Signup = () => {
 
     let phoneNumber = phone.slice(countryCode.length);
     const refferalId = param?.refId || false;
-
+    setIsLoading(true)
     try {
       const response = await ApiCall("post", userregisterUrl, {
         firstName: formData.firstName,
@@ -107,6 +107,8 @@ const Signup = () => {
     } catch (error) {
       toast.error("Sign Up failed");
       console.log(error);
+    }finally{
+      setIsLoading(false)
     }
   };
 

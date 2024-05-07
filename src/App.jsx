@@ -11,10 +11,11 @@ import Home from './Pages/Home'
 import Navbar from './Components/Navbar'
 import './App.css'
 import Outletconnection from './Outletconnection'
+import PostAdd from './Pages/PostAdd'
 
 const App = () => {
   return (
-    <div className='w-full h-screen font-poppins'>
+    <div className='font-poppins'>
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<GetStarted />}/>
@@ -28,7 +29,8 @@ const App = () => {
         
         <Route element={<Outletconnection />}>
           <Route path="/home" element={<Home />} />
-
+          <Route path="/addpost" element={<PostAdd />} />
+          
         </Route>
       </Routes>
       <Toaster/>

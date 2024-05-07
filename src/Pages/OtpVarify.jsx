@@ -59,7 +59,7 @@ const OtpVarify = () => {
         if (response?.data?.sts==="01") {
           toast.success("OTP verified")
           // sessionStorage.setItem("User",response?.data)
-          navigate("/home")
+          navigate("/login")
         }
         setIsLoading(false)
         console.log(response);

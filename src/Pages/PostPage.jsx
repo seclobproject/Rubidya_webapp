@@ -50,8 +50,8 @@ let uniqueData = response?.data?.posts.filter(item => {
     } 
   }, []);
   return (
-    <div className="h-full">
-      <InfiniteScroll
+    <div className=" w-full ">
+      <InfiniteScroll className="w-full  "
         dataLength={latestPosts.length}
         next={()=>fetchPosts(page)}
         hasMore={hasMore}
@@ -60,7 +60,7 @@ let uniqueData = response?.data?.posts.filter(item => {
       >
         {latestPosts &&
       
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center w-full ">
             {latestPosts.map((post, index) => {
             return <SinglePost postData={post} key={index} />;
           })}
