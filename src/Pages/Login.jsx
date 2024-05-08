@@ -10,9 +10,6 @@ import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 
 import userIcon from "../assets/img/user.svg";
-import phoneIcon from "../assets/img/phone.svg";
-import mailIcon from "../assets/img/mail.svg";
-import confirmIcon from "../assets/img/confirm.svg";
 import lockIcon from "../assets/img/lock.svg";
 
 import { ApiCall } from "../Services/Api";
@@ -43,7 +40,7 @@ const Login = () => {
       console.log(response);
 
       if (response?.status === 200) {
-        sessionStorage.setItem("accessToken", response?.data?.access_token);
+        sessionStorage.setItem("User", response?.data?.access_token);
 
         if (response?.data?.isOTPVerified) {
           toast.success("Logined successfully");
@@ -55,7 +52,7 @@ const Login = () => {
         }
       }
       if (response?.response?.status === 401) {
-        toast.error("Login failed");
+        toast.error(response?.response?.data?.msg);
         return;
       }
       setIsLoading(false);
@@ -73,7 +70,7 @@ const Login = () => {
 
   return (
     
-    <div className="w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-start lg:items-center font-poppins">
+    <div className="fixed top-0 left-0 right-0  w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-start lg:items-center font-poppins">
       <div className="h-[67%] lg:h-[100vh] lg:w-[50%]">
       <div className=" rounded-md p-2 lg:p-8  flex flex-col h-full  justify-center items-center lg:gap-4">
           <div className="hidden lg:flex flex-col items-center  -space-y-2.5">
@@ -83,7 +80,7 @@ const Login = () => {
           <div className="text-center text-4xl font pb-4 lg:pb-0 lg:py-4">
             Welcome Back
           </div>
-          <form onSubmit={loginHandler} className="flex flex-col w-fit gap-1  items-center">
+          <div  className="flex flex-col w-fit gap-1  items-center">
             <div className="px-5 mb-2 lg:mb-3 flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
             <img src={userIcon} alt="" className="pr-3" />
               <input
@@ -96,20 +93,33 @@ const Login = () => {
               />
               
             </div>
-            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
-            {isVisible ? (
-                <img src={userIcon} alt="" className="pr-3" />
+            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-10 items-center">
+              <div className="flex flex-row ">
+                <img src={lockIcon} alt="" className="" />
+                <input
+                  type={isVisible ? "text" : "password"}
+                  className="pl-4 outline-none border-none bg-transparent w-60 lg:w-76 h-full"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
+                />
+              </div>
+              {isVisible ? (
+                <FaEyeSlash
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    color: "#A3D4FF",
+                  }}
+                />
               ) : (
-                <img src={userIcon} alt="" className="pr-3" />
+                <FaEye
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    color: "#A3D4FF",
+                  }}
+                />
               )}
-              <input
-              required
-                type={isVisible ? "text" : "password"}
-                className="outline-none border-none bg-transparent w-60 lg:w-72 h-full placeholder:text-sm lg:placeholder:text-base"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-              />
             </div>
             <div className="flex w-full  justify-end text-xs lg:text-sm"> <button className=" text-[#427BBD]" onClick={()=>navigate("/forgotpassword")}>
                 Forgot Your Password
@@ -128,7 +138,7 @@ const Login = () => {
             <div className="w-78  lg:w-96 h-10 rounded-md bg-[#315280] text-white font-semibold text-sm">
               <button className="w-full h-full  rounded-lg text-sm lg:text-base" style={{background:"rgb(59,89,152)"}} onClick={()=>navigate("/signup")}>Create an account</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <div className="h-[33%] lg:h-[100vh] lg:w-[50%]  bg-[#407BFF] bg-opacity-0 lg:bg-opacity-20 flex justify-center items-center">

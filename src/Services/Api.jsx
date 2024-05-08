@@ -6,38 +6,37 @@ export const ApiCall = async (
   endPoint,
   data,
   params,
-  content_type,
   token
 ) => {
-
   try {
-    let token = localStorage.getItem("User");
+      const userToken = sessionStorage.getItem("User");
 
-    const res = await axios({
-      method: method,
-      url: `${Base_url}${endPoint}`,
-      data: data,
-      params: params,
-      headers: {
-        "Content-Type": content_type ?? "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      const headers = {
+          "Authorization": `Bearer ${userToken}`
+      };
 
-    });
-    console.log(res,"res,res.......")
+      if (data instanceof FormData) {
+          // If data is FormData, append headers for file uploads
+          headers["Content-Type"] = "multipart/form-data";
+      }
 
-    return {
-      status: res?.status,
-      data: res.data,
-      message: res.data?.msg || "",
-    };
+      const res = await axios({
+          method: method,
+          url: `${Base_url}${endPoint}`,
+          data: data,
+          params: params,
+          headers: headers
+      });
+
+      return {
+          status: res?.status,
+          data: res.data,
+          message: res.data?.msg || ""
+      };
 
   } catch (error) {
-    console.log("here", error)
-    // Show_Toast(error.response ? error.response.data.message : 'Internal Server Error',false)
-    return error;
+      console.log("Error:", error);
+      return error;
   }
-
-
-}
+};
 

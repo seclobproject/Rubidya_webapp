@@ -58,7 +58,8 @@ const OtpVarify = () => {
         })
         if (response?.data?.sts==="01") {
           toast.success("OTP verified")
-          navigate("/home")
+          // sessionStorage.setItem("User",response?.data)
+          navigate("/login")
         }
         setIsLoading(false)
         console.log(response);
@@ -70,14 +71,14 @@ const OtpVarify = () => {
      }
     }
   return (
-    <div className="w-full h-[100vh] flex flex-col-reverse gap-4 lg:gap-0 lg:flex-row justify-center">
+    <div className="fixed top-0 left-0 right-0  w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-start lg:items-center font-poppins">
       <div className="lg:w-[50%] flex justify-center items-center">
         <div className=" rounded-md p-2 lg:p-16 lg:bg-[#e9edf4] flex flex-col lg:gap-4 items-center">
           <div className="hidden lg:flex flex-col items-center gap-">
             <img src={rubLogo} alt="" className="lg:w-36" />
             <img src={rubText} alt="" className="lg:w-44" />
           </div>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-6">
             <div className="flex flex-col gap-2 items-center">
               <div className="font-bold text-3xl text-[#1e3167]">
                 OTP verification
@@ -120,8 +121,8 @@ const OtpVarify = () => {
           </div>
         </div>
       </div>
-      <div className="lg:w-[50%] lg:h-full flex justify-center items-center">
-        <img src={logImg} alt="" className="lg:w-[80%]" />
+      <div className="h-[33%] lg:h-[100vh] lg:w-[50%]  bg-[#407BFF] bg-opacity-0 lg:bg-opacity-20 flex justify-center items-center">
+        <img src={logImg} alt="" className=" w-[230px]  lg:w-96" />
       </div>
     </div>
   );
