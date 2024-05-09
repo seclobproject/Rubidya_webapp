@@ -1,7 +1,7 @@
 import noProfilePic from "../assets/img/noProfile.png";
 import RIcon from "../assets/img/RIcon.png";
 import { ApiCall } from "../Services/Api";
-import { followUser, unFollowUser } from "../Utils/Constants";
+import { followUser } from "../Utils/Constants";
 import toast from "react-hot-toast";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
@@ -57,13 +57,14 @@ const SuggestUserCard = ({ user }) => {
 
   return (
     <div
-      className="w-[125px] h-fit py-[11px] bg-[#FFFFFF]   rounded-lg flex flex-col    justify-center items-center "
+      className="relative w-30 lg:w-[125px] h-fit py-[11px] bg-[#FFFFFF]   rounded-lg flex flex-col    justify-center items-center "
       style={{
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
         borderRadius: "4px",
         padding: "1rem",
       }}
     >
+      <div className="absolute top-1 right-1.5 rotate-45 text-2xl text-[#45537A] cursor-pointer" onClick={()=>dispatch(removeFromUserSuggestions(user?._id))}>+</div>
       <div className="relative mb-[8px]">
         {
           user?.profilePic?.filePath ? <img

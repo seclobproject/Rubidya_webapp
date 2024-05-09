@@ -50,8 +50,8 @@ let uniqueData = response?.data?.posts.filter(item => {
     } 
   }, []);
   return (
-    <div className=" w-full ">
-      <InfiniteScroll className="w-full  "
+    <div className=" w-full pb-12 px-2 lg:px-0 ">
+      <InfiniteScroll className="w-full flex flex-col items-center justify-center  "
         dataLength={latestPosts.length}
         next={()=>fetchPosts(page)}
         hasMore={hasMore}

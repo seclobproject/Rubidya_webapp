@@ -14,13 +14,15 @@ import lockIcon from "../assets/img/lock.svg";
 
 import { ApiCall } from "../Services/Api";
 import { userloginUrl } from "../Utils/Constants";
+import { useDispatch } from "react-redux";
+import { setUser } from "../config/rubidyaSlice";
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const dispatch=useDispatch()
   const togglePasswordVisibility = () => {
     setIsVisible((prev) => !prev);
   };
@@ -41,6 +43,7 @@ const Login = () => {
 
       if (response?.status === 200) {
         sessionStorage.setItem("User", response?.data?.access_token);
+        dispatch(setUser(response?.data?._id))
 
         if (response?.data?.isOTPVerified) {
           toast.success("Logined successfully");

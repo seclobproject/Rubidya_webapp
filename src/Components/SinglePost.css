@@ -8,7 +8,7 @@
   .heart-animation {
     position: absolute;
     font-size: 18em;
-    color: rgba(243, 84, 116,0.8);
+    color: rgba(252, 0, 0, 1);
     animation: heartBeat 1s ease infinite;
     pointer-events: none;
     z-index: 1; /* Ensure the heart animation appears above the image */

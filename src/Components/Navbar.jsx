@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="">
         <img src={navlogo} alt="" className="w-[230px]" />
       </div>
-      <div className="flex flex-row">
+      {/* <div className="flex flex-row">
         <div className="w-20 h-full flex justify-center">
           <img src={home} alt="" className="w-7 h-7" />
         </div>
@@ -34,7 +34,7 @@ const Navbar = () => {
             <img src={profileImg} alt="" className="w-7 h-7 rounded-full" />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className=" flex flex-row">
         <div className="w-20 h-full flex justify-center">
           <img src={usersIcon} alt="" className="w-[30px] h-[30px]" />

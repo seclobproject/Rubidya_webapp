@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     userProfile:{},
+    userId:"",
     userSuggestion:[],
     walletDetails:{},
     change:0,
@@ -29,10 +30,12 @@ const rubidyaSlice=createSlice({
         },setShowProfile:(state,action)=>{
             state.showProfile=!state.showProfile
             console.log("clicked");
+        },setUser:(state,action)=>{
+            state.userId=action.payload;
         }
     }
 })
 
-export const {setProfile,setFollowing,setUserSuggestion,removeFromUserSuggestions,setShowProfile}=rubidyaSlice.actions
+export const {setProfile,setFollowing,setUserSuggestion,removeFromUserSuggestions,setShowProfile,setUser}=rubidyaSlice.actions
 
 export default rubidyaSlice.reducer;
