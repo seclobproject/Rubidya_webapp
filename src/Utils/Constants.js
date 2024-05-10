@@ -13,5 +13,7 @@ export const unFollowUser="/api/users/unfollow"
 export const getProfilePic="/api/users/get-profile-pic"
 export const likeAPost="/api/posts/like"
 export const uploadImage="/api/users/upload-image"
+export const allUsers="/api/users/all-users"
+export const getUser="/api/users/get-user/"
 
 

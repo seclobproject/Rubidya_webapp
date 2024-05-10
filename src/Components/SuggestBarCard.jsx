@@ -1,3 +1,4 @@
+
 import noProfilePic from "../assets/img/noProfile.png";
 import RIcon from "../assets/img/RIcon.png";
 import { ApiCall } from "../Services/Api";
@@ -12,7 +13,7 @@ import {
 } from "../config/rubidyaSlice";
 import { Link } from "react-router-dom";
 
-const SuggestUserCard = ({ user }) => {
+const SuggestBarCard = ({ user }) => {
   const [status, setStatus] = useState(false);
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -59,14 +60,18 @@ const SuggestUserCard = ({ user }) => {
 
   return (
     <Link to={`/user/${user._id}`}
-      className="relative w-30 lg:w-[125px] h-fit py-[11px] bg-[#FFFFFF]   rounded-lg flex flex-col    justify-center items-center "
+      className="relative w-full  h-full py-[11px] bg-[#FFFFFF]   rounded-lg flex flex-row    justify-between items-center  cursor-pointer"
       style={{
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
         borderRadius: "4px",
         padding: "1rem",
       }}
     >
-      <div className="absolute top-1 right-1.5 rotate-45 text-2xl text-[#45537A] cursor-pointer" onClick={()=>dispatch(removeFromUserSuggestions(user?._id))}>+</div>
+      <div className="absolute top-1 right-1.5 rotate-45 text-2xl text-[#45537A] cursor-pointer" onClick={(e)=>{
+        e.preventDefault();
+        dispatch(removeFromUserSuggestions(user?._id))
+      }}>+</div>
+      <div className="flex flex-row justify-center items-center gap-4">
       <div className="relative mb-[8px]">
         {
           user?.profilePic?.filePath ? <img
@@ -83,8 +88,10 @@ const SuggestUserCard = ({ user }) => {
         />
       </div>
       <div className="text-[#1E3167] text-xs mb-[6px]">
-        {user?.firstName.split(" ")[0]}
+        {user?.firstName}
       </div>
+      </div>
+      
       <div className="">
         {!status && (
           <button
@@ -95,12 +102,9 @@ const SuggestUserCard = ({ user }) => {
             {Loading ? <ClipLoader size={8} color="white" /> : "Follow"}
           </button>
         )}
-        {/* {status && <button className="text-white bg-[#45537A] rounded-md py-1 px-6 text-xxs2" onClick={handleUnfollow} disabled={Loading}>
-        {Loading?<ClipLoader size={8} color="white" />:"Unfollow"}
-        </button>} */}
       </div>
     </Link>
   );
 };
 
-export default SuggestUserCard;
+export default SuggestBarCard;

@@ -46,8 +46,8 @@ const PostAdd = () => {
     setImage(e.target.files[0]);
   };
   return (
-    <div className="h-full w-[500px] pt-5 flex justify-center items-center overflow-y-hidden  mt-[58px] bg-    ">
-      <div className="flex flex-col items-center w-fit gap-5 bg-white p-10 rounded-md">
+    <div className="h-screen py-32 flex justify-center items-center overflow-y-hidden    ">
+      <div className="flex flex-col items-center justify-center w-fit h-full  gap-5 bg-white p-10 rounded-md">
         <div className="text-[#45537A] font-semibold">upload your pics</div>
         <div className="itemfield">
           <label htmlFor="file-input">
@@ -65,7 +65,7 @@ const PostAdd = () => {
             hidden
           />
         </div>
-        <textarea placeholder="Add description"  className="border-[#45537A] border-2 outline-none rounded-md w-96 p-2" onChange={(e)=>setDescription(e.target.value)} />
+        <textarea placeholder="Add description"  className="border-[#45537A] border-2 outline-none rounded-md lg:w-96 p-2" onChange={(e)=>setDescription(e.target.value)} />
         <button className="bg-[#45537A] text-white w-fit text-sm px-4 py-2 rounded-md " onClick={uploadPost}>{loading?<ClipLoader color="white" size={20}/>:"Upload With Rubidya"}</button>
       </div>
     </div>

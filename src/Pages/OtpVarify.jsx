@@ -2,7 +2,7 @@ import logImg from "../assets/Images/forgot.svg";
 import rubLogo from "../assets/Images/applogo.svg";
 import rubText from "../assets/Images/Name.svg";
 import OTPInput from "react-otp-input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ApiCall } from "../Services/Api";
 import { forgotPasswordOtpUrl, verifyOtpUrl } from "../Utils/Constants";
@@ -12,7 +12,7 @@ const OtpVarify = () => {
     const [OTP,setOtp]=useState("")
     const navigate=useNavigate()
     const [isLoading,setIsLoading]=useState(false)
-    let userEmail=sessionStorage.getItem("userEmail")
+    let userEmail=localStorage.getItem("userEmail")
     console.log(userEmail);
 
     const handleSubmit=async(e)=>{
@@ -35,7 +35,7 @@ const OtpVarify = () => {
           return;
         }
         if (respose?.data?.sts==="01") {
-          sessionStorage.setItem("userEmail",userEmail)
+          localStorage.setItem("userEmail",userEmail)
           toast.success("Reset your password")
           navigate("/resetpassword")
         }
@@ -51,7 +51,7 @@ const OtpVarify = () => {
      } else {
       try {
         setIsLoading(true)
-        let id=sessionStorage.getItem("userId");
+        let id=localStorage.getItem("userId");
         const response=await ApiCall("post",verifyOtpUrl,{
           userId:id,
           OTP:OTP,
@@ -70,8 +70,13 @@ const OtpVarify = () => {
       }
      }
     }
+    useEffect(()=>{
+      if (localStorage.getItem("User")) {
+        navigate("/home")
+       }
+    },[])
   return (
-    <div className="fixed top-0 left-0 right-0  w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-start lg:items-center font-poppins">
+    <div className="  w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-center lg:items-center font-poppins">
       <div className="lg:w-[50%] flex justify-center items-center">
         <div className=" rounded-md p-2 lg:p-16 lg:bg-[#e9edf4] flex flex-col lg:gap-4 items-center">
           <div className="hidden lg:flex flex-col items-center gap-">
@@ -113,7 +118,7 @@ const OtpVarify = () => {
             
               </div>
              <form action="" onSubmit={handleSubmit} >
-             <div className="w-[99%] lg:w-96 h-10 rounded-md bg-blue-700 text-white">
+             <div className="w-32 mt-7 lg:w-96 h-10 rounded-md bg-blue-700 text-white">
               <button className="w-full h-full text-lg" onClick={handleSubmit} disabled={isLoading}>{isLoading?<ClipLoader color="white" size={20}/>:"Submit"}</button>
             </div>
              </form>

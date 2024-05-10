@@ -1,8 +1,9 @@
 import React from 'react'
 import SinglePostCard from '../Components/SinglePostCard'
 import noPostIcon from '../assets/img/nopost.png'
-const PostSection = ({postData}) => {
-  console.log(postData.length);
+import InfiniteScroll from "react-infinite-scroll-component";
+const PostSection = ({postData,fetchPosts,page,hasMore}) => {
+  console.log(postData);
   if (postData.length===0) {
     return(
       <div className='pt-32 flex flex-col justify-center items-center font-poppins'>
@@ -13,13 +14,24 @@ const PostSection = ({postData}) => {
       </div>
     )
   }
+  // fetchPosts()
   return (
-    <div className='grid grid-cols-3 gap-2 pb-32 '>
+  <div className='w-full h-full flex justify-center pt-5'>
+     <div className='w-fit flex justify-center'>
+     <InfiniteScroll
+    dataLength={postData.length}
+        next={()=>fetchPosts(page)}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={<p></p>}
+     className='grid grid-cols-3 gap-1 lg:gap-4 pb-32  justify-center items-center '>
       {postData && postData.map((single,index)=>{
         return <SinglePostCard data={single} key={index}/>
       })}
       
-     </div>
+     </InfiniteScroll>
+   </div>
+  </div>
   )
 }
 

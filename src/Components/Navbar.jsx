@@ -1,9 +1,5 @@
 import navlogo from "../assets/img/rubnavlogo.png";
-import home from "../assets/img/home.png";
-import search from "../assets/img/search.png";
-import reel from "../assets/img/reel.png";
-import camera from "../assets/img/camera.png";
-import profileImg from "../assets/img/profilePicMain.png";
+
 import bellIcon from "../assets/img/bellicon.png";
 import usersIcon from "../assets/img/users.png";
 import chatIcon from "../assets/img/chat.png";
@@ -14,9 +10,9 @@ const Navbar = () => {
   return (
     <div className="hidden lg:flex w-full h-20  bg-white px-11  justify-between items-center">
       <div className="">
-        <img src={navlogo} alt="" className="w-[230px]" />
+        <img src={navlogo} alt="" className="w-[160px]" />
       </div>
-      <div className="flex flex-row">
+      {/* <div className="flex flex-row">
         <div className="w-20 h-full flex justify-center">
           <img src={home} alt="" className="w-7 h-7" />
         </div>
@@ -34,7 +30,7 @@ const Navbar = () => {
             <img src={profileImg} alt="" className="w-7 h-7 rounded-full" />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className=" flex flex-row">
         <div className="w-20 h-full flex justify-center">
           <img src={usersIcon} alt="" className="w-[30px] h-[30px]" />

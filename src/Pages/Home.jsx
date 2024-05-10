@@ -12,11 +12,13 @@ import { useNavigate } from 'react-router-dom'
 const Home = () => {
   const navigate=useNavigate()
   useEffect(()=>{
-   
+    if (localStorage.getItem("User")==="") {
+      navigate("/login")
+     }
   },[])
   return (
-    <div className='h-full flex flex-col  lg:mt-[60px] '>
-      <div className='flex justify-center'><SuggestionSection/></div>
+    <div className='h-full w-full flex flex-col  lg:mt-[90px] '>
+      {/* <div className='w-full flex justify-center'><SuggestionSection/></div> */}
     <div className='w-full flex justify-center mt-2 h-full'><PostPage/></div>
     
     </div>

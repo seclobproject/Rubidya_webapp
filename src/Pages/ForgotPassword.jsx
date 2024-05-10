@@ -5,7 +5,7 @@ import rubText from "../assets/Images/Name.svg";
 
 import { FaEnvelope, FaUser } from "react-icons/fa";
 import userIcon from "../assets/img/user.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ApiCall } from "../Services/Api";
 import { sendforgototpUrl } from "../Utils/Constants";
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
           return
         }
         if (response?.data?.status==="PENDING") {
-          sessionStorage.setItem("userEmail",email)
+          localStorage.setItem("userEmail",email)
           navigate("/verify")
         }
         setIsLoading(false)
@@ -46,7 +46,11 @@ const ForgotPassword = () => {
         setIsLoading(false)
       }
     }
-
+    useEffect(()=>{
+      if (localStorage.getItem("User")!=="") {
+        navigate("/home")
+       }
+    },[])
   return (
     <div className="fixed top-0 left-0 right-0 w-full h-[100vh] flex flex-col-reverse justify-center items-center lg:flex-row">
       <div className="lg:w-[50%] flex justify-center items-center">

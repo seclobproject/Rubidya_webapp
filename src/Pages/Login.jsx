@@ -5,7 +5,7 @@ import rubText from "../assets/Images/Name.svg";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 
@@ -14,13 +14,15 @@ import lockIcon from "../assets/img/lock.svg";
 
 import { ApiCall } from "../Services/Api";
 import { userloginUrl } from "../Utils/Constants";
+import { useDispatch } from "react-redux";
+import { setUser } from "../config/rubidyaSlice";
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const dispatch=useDispatch()
   const togglePasswordVisibility = () => {
     setIsVisible((prev) => !prev);
   };
@@ -40,13 +42,14 @@ const Login = () => {
       console.log(response);
 
       if (response?.status === 200) {
-        sessionStorage.setItem("User", response?.data?.access_token);
+        localStorage.setItem("User", response?.data?.access_token);
+        dispatch(setUser(response?.data?._id))
 
         if (response?.data?.isOTPVerified) {
           toast.success("Logined successfully");
           navigate("/home");
         } else {
-          sessionStorage.setItem("userId", response?.data?._id);
+          localStorage.setItem("userId", response?.data?._id);
           toast.success("Verification OTP sent ");
           navigate("/verify");
         }
@@ -67,6 +70,11 @@ const Login = () => {
       setPassword("");
     }
   };
+  useEffect(()=>{
+    if (localStorage.getItem("User")) {
+      navigate("/home")
+     }
+  },[])
 
   return (
     
@@ -93,7 +101,7 @@ const Login = () => {
               />
               
             </div>
-            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-10 items-center">
+            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
               <div className="flex flex-row ">
                 <img src={lockIcon} alt="" className="" />
                 <input

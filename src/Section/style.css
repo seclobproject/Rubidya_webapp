@@ -1,0 +1,5 @@
+.my-element {
+    width: calc(100% - 20px);
+    background-color: red;
+    /* height: calc(100vh - 50px); */
+  }

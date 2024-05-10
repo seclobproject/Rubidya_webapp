@@ -7,5 +7,5 @@ import { store } from "./config/store.js";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <App />
-  </Provider>
+  </Provider>,
 );

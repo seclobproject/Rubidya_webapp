@@ -6,13 +6,16 @@ import { ApiCall } from '../Services/Api'
 import { getProfilePic, getUserPost, getUserProfile } from '../Utils/Constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProfile } from '../config/rubidyaSlice'
-
+import arrowIcon from "../assets/img/arrow.png";
+import moreIcon from "../assets/img/more.png";
 const Profile = ({right}) => {
   const [selectedBut,setSelectedBut]=useState("")
   const [profileData,setProfileData]=useState()
   const [profilePic,setProfilePic]=useState()
   const [postCount,setPostCount]=useState();
-  const [posts,setPosts]=useState()
+  const [posts,setPosts]=useState([])
+  const [page,setPage]=useState(1)
+  const [hasMore,setHasMore]=useState(true)
   const dispatch=useDispatch()
   const showProfile=useSelector(state=>state.showProfile)
   const fetchProfile=async()=>{
@@ -27,14 +30,21 @@ const Profile = ({right}) => {
         console.log(error);
       }
   }
-  const fetchPosts=async()=>{
+  const fetchPosts=async(pageNumber)=>{
     try {
-      const response=await ApiCall("get",getUserPost)
+      const response=await ApiCall("get",`${getUserPost}?page=${pageNumber}`)
       // console.log(response);
       if (response?.data?.sts==="01") {
-        setPosts(response?.data?.media)
+        console.log(posts);
+        console.log(response.data);
+        setPosts((prev)=>[...prev,...response?.data?.media])
       
         setPostCount(response?.data?.postCount)
+        setPage(pageNumber+1)
+        if (posts.length>=response?.data?.postCount) {
+          setHasMore(false)
+        }
+        console.log()
         // setProfilePic(response?.data?.media[0]?.profilePic)
        
       }
@@ -51,8 +61,12 @@ const Profile = ({right}) => {
   }
   useEffect(()=>{
     fetchProfile()
-    fetchPosts()
+    fetchPosts(page);
+   
     getProfilePicOfUser()
+    return ()=>{
+      window.scrollTo(0,0)
+    } 
   },[])
   if (right===true) {
     return(
@@ -63,9 +77,21 @@ const Profile = ({right}) => {
    
   }
   return (
-    <div className={`w-[400px] h-full py-2 px-2 bg-white rounded-e-lg transform transition-all ease-in-out  duration-500 ${showProfile ? "translate-x-0":"-translate-x-full" }`}>
-      <ProfileSection setSelectedBut={setSelectedBut}  postCount={postCount} profilePic={profilePic}/>
-      {(selectedBut==="" && posts) &&  <PostSection postData={posts} />}
+    <div className={`w-full lg:w-[500px] h-full py-2 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px]
+   
+     `}
+     >
+      <div className="flex w-full justify-between px-5  pt-10">
+        <div className={`w-8 h-8 rounded-full border flex justify-center items-center bg-gradient-to-t from-[#04477039]  to-[#d6eee13f] `}>
+          <img src={arrowIcon} alt="" className={`w-[13px] h-[11px] `} onClick={()=>setSelectedBut("")} />
+        </div>
+        <div className="w-8 h-8 rounded-full border flex justify-center items-center bg-gradient-to-t from-[#04477039]  to-[#d6eee13f]">
+          <img src={moreIcon} alt="" className="w-[11px] h-[4px] " />
+        </div>
+      </div>
+        {/* ${showProfile ? "translate-x-0":"-translate-x-full" } */}
+      {selectedBut==="" && <ProfileSection setSelectedBut={setSelectedBut}  postCount={postCount} profilePic={profilePic}/>}
+      {(selectedBut==="" && posts) &&  <PostSection postData={posts} fetchPosts={fetchPosts} page={page} hasMore={hasMore}/>}
       {selectedBut==="wallet" &&  <PayIdSection/>}
      
     </div>

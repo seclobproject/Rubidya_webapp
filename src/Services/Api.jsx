@@ -9,7 +9,7 @@ export const ApiCall = async (
   token
 ) => {
   try {
-      const userToken = sessionStorage.getItem("User");
+      const userToken = localStorage.getItem("User");
 
       const headers = {
           "Authorization": `Bearer ${userToken}`

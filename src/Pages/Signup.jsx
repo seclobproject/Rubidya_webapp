@@ -11,7 +11,7 @@ import lockIcon from "../assets/img/lock.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEnvelope, FaPhone, FaUser } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
@@ -95,7 +95,7 @@ const Signup = () => {
       });
 
       if (response.status === 200) {
-        sessionStorage.setItem("userId", response?.data?.userId);
+        localStorage.setItem("userId", response?.data?.userId);
         toast.success("Verification OTP email sent");
         navigate("/verify");
         return;
@@ -111,6 +111,11 @@ const Signup = () => {
       setIsLoading(false)
     }
   };
+  useEffect(()=>{
+    if (localStorage.getItem("User")) {
+      navigate("/home")
+     }
+  },[])
 
   return (
     <div className="fixed top-0 left-0 right-0 w-full h-[100vh] flex flex-col-reverse justify-center lg:flex-row">

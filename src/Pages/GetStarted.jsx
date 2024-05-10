@@ -2,8 +2,15 @@ import img1 from  "../assets/Images/splash.svg"
 import rubLogo from "../assets/Images/applogo.svg"
 import rubText from "../assets/Images/Name.svg"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 const GetStarted = () => {
   const navigate=useNavigate()
+
+  useEffect(()=>{
+    if (localStorage.getItem("User")) {
+      navigate("/home")
+     }
+  },[])
   return (
     <div className='w-full  h-[100vh] flex flex-col lg:flex-row justify-center items-center'>
       <div className="h-[40%] lg:w-[50%] lg:h-[100%] flex flex-col justify-center items-center" >
