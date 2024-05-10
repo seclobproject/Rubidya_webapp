@@ -10,12 +10,14 @@ import {
   removeFromUserSuggestions,
   setFollowing,
 } from "../config/rubidyaSlice";
+import { Link } from "react-router-dom";
 
 const SuggestUserCard = ({ user }) => {
   const [status, setStatus] = useState(false);
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const handleFollow = async () => {
+  const handleFollow = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
       const response = await ApiCall("post", followUser, {
@@ -56,7 +58,7 @@ const SuggestUserCard = ({ user }) => {
   }, [user._id]);
 
   return (
-    <div
+    <Link to={`/user/${user._id}`}
       className="relative w-30 lg:w-[125px] h-fit py-[11px] bg-[#FFFFFF]   rounded-lg flex flex-col    justify-center items-center "
       style={{
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
@@ -71,14 +73,9 @@ const SuggestUserCard = ({ user }) => {
           src={user?.profilePic?.filePath}
           alt=""
           className="w-16 h-16 rounded-full"
-        />:  <div className="w-16 h-16 flex justify-center items-center border-4 border-[#45537A] rounded-full">
-        <img src={noProfilePic} alt="" className="w-[21px] h-[29px]" />
-      </div>
+        />:  
+        <img src={noProfilePic} alt="" className="w-16 h-16 rounded-full" />
         }
-        
-      
-
-
         <img
           src={RIcon}
           alt=""
@@ -102,7 +99,7 @@ const SuggestUserCard = ({ user }) => {
         {Loading?<ClipLoader size={8} color="white" />:"Unfollow"}
         </button>} */}
       </div>
-    </div>
+    </Link>
   );
 };
 

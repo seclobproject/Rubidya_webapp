@@ -89,7 +89,7 @@ const SinglePost = ({ postData }) => {
       style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)" }}
     >
       <div className=" flex flex-col h-fit w-full gap-2.5 bg--400 overflow-hidden">
-        <div className="px-2 flex flex-row justify-between items-center">
+        <div className=" flex flex-row justify-between items-center">
         <div className="flex flex-row gap-[7px] ">
           <div>
             {postData?.profilePic ? (
@@ -99,12 +99,12 @@ const SinglePost = ({ postData }) => {
                 className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full"
               />
             ) : (
-              <div className="w-[40px] h-[40px] flex justify-center items-center border-[3px] border-[#45537A] rounded-full">
-                <img src={noProfilePic} alt="" className="w-[21px] h-[29px]" />
-              </div>
+           
+                <img src={noProfilePic} alt="" className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full" />
+                     
             )}
           </div>
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start justify-center">
             <div className="font-semibold text-[#1E3167]">
               {postData?.username}
             </div>
@@ -154,7 +154,7 @@ const SinglePost = ({ postData }) => {
           />
         </div>
         <div>
-          <img src={share} alt="" className="w-[29px] h-[28px]" />
+          <img src={share} alt="" className="w-[24px] h-[24px]" />
         </div>
         </div>
         <div className="flex flex-col items-start  text-sm w-full">

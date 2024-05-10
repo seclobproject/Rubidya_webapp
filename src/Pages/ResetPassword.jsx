@@ -39,13 +39,13 @@ const ResetPassword = () => {
     try {
       setIsLoading(true);
       const response = await ApiCall("put", changePasswordUrl, {
-        email: sessionStorage.getItem("userEmail"),
+        email: localStorage.getItem("userEmail"),
         password: password,
       });
 
       if (response?.data?.sts === "01") {
         toast.success("Password changed successfully");
-        sessionStorage.clear()
+        localStorage.clear()
         navigate("/login");
       } else {
         toast.error("Password changing unsuccessful");

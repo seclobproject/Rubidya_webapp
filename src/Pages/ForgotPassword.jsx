@@ -35,7 +35,7 @@ const ForgotPassword = () => {
           return
         }
         if (response?.data?.status==="PENDING") {
-          sessionStorage.setItem("userEmail",email)
+          localStorage.setItem("userEmail",email)
           navigate("/verify")
         }
         setIsLoading(false)

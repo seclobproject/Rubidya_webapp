@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ApiCall } from "./Services/Api";
 import { getUserProfile } from "./Utils/Constants";
 import Search from "./Pages/Search.jsx";
+import VisitProfile from "./Pages/VisitProfile.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const App = () => {
     }
   };
   useEffect(() => {
-    if (sessionStorage.getItem('User')) {
+    if (localStorage.getItem('User')) {
       fetchProfile()
     }
   }, [userId]);
@@ -54,6 +55,9 @@ const App = () => {
             <Route path="/addpost" element={<PostAdd />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/user" element={<VisitProfile/>}>
+              <Route path=":userId" element={<VisitProfile/>} />
+            </Route>
           </Route>
         </Routes>
         <Toaster />

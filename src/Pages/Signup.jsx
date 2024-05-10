@@ -95,7 +95,7 @@ const Signup = () => {
       });
 
       if (response.status === 200) {
-        sessionStorage.setItem("userId", response?.data?.userId);
+        localStorage.setItem("userId", response?.data?.userId);
         toast.success("Verification OTP email sent");
         navigate("/verify");
         return;

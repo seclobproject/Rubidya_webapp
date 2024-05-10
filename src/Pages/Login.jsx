@@ -42,14 +42,14 @@ const Login = () => {
       console.log(response);
 
       if (response?.status === 200) {
-        sessionStorage.setItem("User", response?.data?.access_token);
+        localStorage.setItem("User", response?.data?.access_token);
         dispatch(setUser(response?.data?._id))
 
         if (response?.data?.isOTPVerified) {
           toast.success("Logined successfully");
           navigate("/home");
         } else {
-          sessionStorage.setItem("userId", response?.data?._id);
+          localStorage.setItem("userId", response?.data?._id);
           toast.success("Verification OTP sent ");
           navigate("/verify");
         }
@@ -96,7 +96,7 @@ const Login = () => {
               />
               
             </div>
-            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-10 items-center">
+            <div className="px-5  flex flex-row rounded-xl border-2 border-[#A3D4FF]  lg:w-96 h-12 items-center">
               <div className="flex flex-row ">
                 <img src={lockIcon} alt="" className="" />
                 <input

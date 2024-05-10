@@ -18,9 +18,9 @@ const ProfileSection = ({ setSelectedBut, postCount, profilePic }) => {
               className="w-full h-full rounded-full"
             />
           ) : (
-            <div className="w-full h-full flex justify-center items-center border-4 border-[#45537A] rounded-full">
-              <img src={noProfilePic} alt="" className="w-[21px] h-[29px]" />
-            </div>
+            
+              <img src={noProfilePic} alt="" className="w-full h-full rounded-full" />
+    
           )}
         </div>
         <div className="flex flex-row gap-[30px] pt-4 lg:pr-4">

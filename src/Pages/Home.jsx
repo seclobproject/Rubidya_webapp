@@ -12,7 +12,9 @@ import { useNavigate } from 'react-router-dom'
 const Home = () => {
   const navigate=useNavigate()
   useEffect(()=>{
-   
+    if (localStorage.getItem("User")==="") {
+      navigate("/login")
+     }
   },[])
   return (
     <div className='h-full w-full flex flex-col  lg:mt-[90px] '>

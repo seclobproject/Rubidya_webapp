@@ -1,9 +1,5 @@
 import navlogo from "../assets/img/rubnavlogo.png";
-import home from "../assets/img/home.png";
-import search from "../assets/img/search.png";
-import reel from "../assets/img/reel.png";
-import camera from "../assets/img/camera.png";
-import profileImg from "../assets/img/profilePicMain.png";
+
 import bellIcon from "../assets/img/bellicon.png";
 import usersIcon from "../assets/img/users.png";
 import chatIcon from "../assets/img/chat.png";
