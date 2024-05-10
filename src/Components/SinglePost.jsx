@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { ApiCall } from "../Services/Api";
 import { likeAPost } from "../Utils/Constants";
 import "./SinglePost.css";
+import { Link } from "react-router-dom";
 
 const SinglePost = ({ postData }) => {
   const [timeDifference, setTimeDifference] = useState();
@@ -85,12 +86,12 @@ const SinglePost = ({ postData }) => {
   }, []);
   return (
     <div
-      className="w-full lg:w-[525px] h-fit bg-white py-[22px] px-2 lg:px-5 flex items-start justify-center lg:rounded-xl"
-      style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)" }}
+      className="w-full md:w-[500px] lg:w-[525px] h-fit bg-white py-[22px] px-2 lg:px-5 flex items-start justify-center lg:rounded-xl"
+      style={{ boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.2)" }}
     >
       <div className=" flex flex-col h-fit w-full gap-2.5 bg--400 overflow-hidden">
         <div className=" flex flex-row justify-between items-center">
-        <div className="flex flex-row gap-[7px] ">
+        <Link to={`/user/${postData?.userId}`} className="flex flex-row gap-[7px] ">
           <div>
             {postData?.profilePic ? (
               <img
@@ -110,7 +111,7 @@ const SinglePost = ({ postData }) => {
             </div>
             <div className="text-[#707070] text-xs">{timeDifference} ago</div>
           </div>
-        </div>
+        </Link>
         <div><img src={more} alt="" className="w-1 h-[15px]" /></div>
         </div>
         <div className="w-full h-full post ">

@@ -5,7 +5,7 @@ import rubText from "../assets/Images/Name.svg";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 
@@ -70,6 +70,11 @@ const Login = () => {
       setPassword("");
     }
   };
+  useEffect(()=>{
+    if (localStorage.getItem("User")) {
+      navigate("/home")
+     }
+  },[])
 
   return (
     

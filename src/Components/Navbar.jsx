@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="hidden lg:flex w-full h-20  bg-white px-11  justify-between items-center">
       <div className="">
-        <img src={navlogo} alt="" className="w-[230px]" />
+        <img src={navlogo} alt="" className="w-[160px]" />
       </div>
       {/* <div className="flex flex-row">
         <div className="w-20 h-full flex justify-center">

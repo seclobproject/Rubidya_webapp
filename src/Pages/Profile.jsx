@@ -77,11 +77,11 @@ const Profile = ({right}) => {
    
   }
   return (
-    <div className={`w-full lg:w-[400px] h-screen py-2 px-2 bg-white rounded-e-lg transform transition-all ease-in-out  duration-500
+    <div className={`w-full lg:w-[500px] h-full py-2 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px]
    
      `}
      >
-      <div className="flex w-full justify-between px-5 py-5">
+      <div className="flex w-full justify-between px-5  pt-10">
         <div className={`w-8 h-8 rounded-full border flex justify-center items-center bg-gradient-to-t from-[#04477039]  to-[#d6eee13f] `}>
           <img src={arrowIcon} alt="" className={`w-[13px] h-[11px] `} onClick={()=>setSelectedBut("")} />
         </div>

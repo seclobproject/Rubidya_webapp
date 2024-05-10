@@ -7,7 +7,7 @@ const GetStarted = () => {
   const navigate=useNavigate()
 
   useEffect(()=>{
-    if (localStorage.getItem("User")==="") {
+    if (localStorage.getItem("User")) {
       navigate("/home")
      }
   },[])

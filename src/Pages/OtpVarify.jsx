@@ -2,7 +2,7 @@ import logImg from "../assets/Images/forgot.svg";
 import rubLogo from "../assets/Images/applogo.svg";
 import rubText from "../assets/Images/Name.svg";
 import OTPInput from "react-otp-input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ApiCall } from "../Services/Api";
 import { forgotPasswordOtpUrl, verifyOtpUrl } from "../Utils/Constants";
@@ -70,6 +70,11 @@ const OtpVarify = () => {
       }
      }
     }
+    useEffect(()=>{
+      if (localStorage.getItem("User")) {
+        navigate("/home")
+       }
+    },[])
   return (
     <div className="  w-full h-[100vh] flex flex-col-reverse lg:flex-row justify-center lg:items-center font-poppins">
       <div className="lg:w-[50%] flex justify-center items-center">

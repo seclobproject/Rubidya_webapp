@@ -22,7 +22,7 @@ const VisitProfile = () => {
       if (response?.data?.sts === "01") {
         setUserDetails(response?.data?.media);
       } else {
-        navigate("/search");
+        navigate(-1);
       }
       console.log(response);
     } catch (error) {
@@ -34,9 +34,15 @@ const VisitProfile = () => {
       navigate("/home");
     }
     getUserDetails();
-  }, []);
+  }, [userId]);
+
+  if (!userDetails) {
+    return(
+      <div></div>
+    )
+  }
   return (
-    <div className="w-full h-screen md:w-[400px] lg:mt-24  ">
+    <div className="w-full lg:w-[500px] h-full py-4 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px] ">
       <div className="w-full h-fit bg-white ">
         <div className="flex w-full justify-between px-5 py-5">
           <div

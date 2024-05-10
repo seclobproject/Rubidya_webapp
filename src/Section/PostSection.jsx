@@ -16,18 +16,22 @@ const PostSection = ({postData,fetchPosts,page,hasMore}) => {
   }
   // fetchPosts()
   return (
-    <InfiniteScroll
+  <div className='w-full h-full flex justify-center pt-5'>
+     <div className='w-fit flex justify-center'>
+     <InfiniteScroll
     dataLength={postData.length}
         next={()=>fetchPosts(page)}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
         endMessage={<p></p>}
-     className='grid grid-cols-3 gap-1 pb-32  justify-center items-center '>
+     className='grid grid-cols-3 gap-1 lg:gap-4 pb-32  justify-center items-center '>
       {postData && postData.map((single,index)=>{
         return <SinglePostCard data={single} key={index}/>
       })}
       
      </InfiniteScroll>
+   </div>
+  </div>
   )
 }
 
