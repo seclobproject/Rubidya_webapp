@@ -24,9 +24,9 @@ function Outletconnection() {
       <div className=" w-full flex flex-row">
        
         <div className="sticky w-full flex justify-center  gap-3 mt-2 ">
-          <div className="hidden md:flex h-full fixed top-[105px] left-8 "><SuggestionBar /></div>
+          <div className="hidden lg:flex h-full fixed top-[105px] left-8 "><SuggestionBar /></div>
           <Outlet />
-          <div className=" hidden md:flex h-full fixed top-[105px] right-8"><RightSideBar /></div>
+          <div className=" hidden lg:flex h-full fixed top-[105px] right-8"><RightSideBar /></div>
         </div>
       </div>
       <div className="fixed bottom-0 left-0 right-0 z-10">
