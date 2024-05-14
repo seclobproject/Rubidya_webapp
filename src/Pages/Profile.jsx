@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setProfile } from '../config/rubidyaSlice'
 import arrowIcon from "../assets/img/arrow.png";
 import moreIcon from "../assets/img/more.png";
-const Profile = ({right}) => {
+import WalletSection from '../Section/WalletSection'
+const Profile = () => {
   const [selectedBut,setSelectedBut]=useState("")
   const [profileData,setProfileData]=useState()
   const [profilePic,setProfilePic]=useState()
@@ -17,7 +18,7 @@ const Profile = ({right}) => {
   const [page,setPage]=useState(1)
   const [hasMore,setHasMore]=useState(true)
   const dispatch=useDispatch()
-  const showProfile=useSelector(state=>state.showProfile)
+  // const showProfile=useSelector(state=>state.showProfile)
   const fetchProfile=async()=>{
       try {
         const response=await ApiCall("get",getUserProfile)
@@ -68,16 +69,9 @@ const Profile = ({right}) => {
       window.scrollTo(0,0)
     } 
   },[])
-  if (right===true) {
-    return(
-      <div className=" bg-white w-[400px] h-full py-2 px-2  rounded-e-md">
-
-      </div>
-    )
-   
-  }
+  
   return (
-    <div className={`w-full lg:w-[500px] h-full py-2 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px]
+    <div className={`w-full sm:[380px] md:[400px] lg:w-[500px] h-screen py-2 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px]
    
      `}
      >
@@ -90,9 +84,10 @@ const Profile = ({right}) => {
         </div>
       </div>
         {/* ${showProfile ? "translate-x-0":"-translate-x-full" } */}
-      {selectedBut==="" && <ProfileSection setSelectedBut={setSelectedBut}  postCount={postCount} profilePic={profilePic}/>}
+      {/* {selectedBut==="" && <ProfileSection seStelectedBut={setSelectedBut}  postCount={postCount} profilePic={profilePic}/>}
       {(selectedBut==="" && posts) &&  <PostSection postData={posts} fetchPosts={fetchPosts} page={page} hasMore={hasMore}/>}
-      {selectedBut==="wallet" &&  <PayIdSection/>}
+      {selectedBut==="wallet" &&  <PayIdSection/>} */}
+      <WalletSection/>
      
     </div>
   )

@@ -1,0 +1,24 @@
+.custom-scrollbar {
+    overflow-y: auto;
+    scrollbar-width: thin; /* Use standard property for better compatibility */
+    scrollbar-color: #1E3167 transparent; /* Set semi-transparent track color */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar { /* Target WebKit browsers for fallback */
+    width: 3px; /* Adjust width for desired lightness */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Maintain transparent track */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #1E3167; /* Keep thumb color */
+    border-radius: 5px;
+    border: 1px solid transparent; /* Maintain rounded corners and transparent border */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #1E3167; /* Keep consistent thumb color on hover */
+  }
+  

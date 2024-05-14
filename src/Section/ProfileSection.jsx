@@ -3,7 +3,7 @@ import noProfilePic from "../assets/img/noProfile.png";
 import userIcon from "../assets/img/user.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowProfile } from "../config/rubidyaSlice";
-const ProfileSection = ({ setSelectedBut, postCount, profilePic }) => {
+const ProfileSection = ({ seStelectedBut, postCount, profilePic }) => {
   const profileData = useSelector((state) => state.userProfile);
   const dispatch=useDispatch()
   return (
@@ -64,19 +64,19 @@ const ProfileSection = ({ setSelectedBut, postCount, profilePic }) => {
       <div className="flex flex-row  py-2 justify-between">
         <button
           className=" font-medium text-xs flex justify-center items-center text-white bg-[#184AC0] px-7 lg:px-9 py-3 rounded-2xl"
-          onClick={() => setSelectedBut("edit")}
+          onClick={() => seStelectedBut("edit")}
         >
           Edit profile
         </button>
         <button
           className=" font-medium text-xs flex justify-center items-center text-white bg-[#28426B] px-7 lg:px-[50px] py-3 rounded-2xl"
-          onClick={() => setSelectedBut("wallet")}
+          onClick={() => seStelectedBut("wallet")}
         >
           Wallet
         </button>
         <button
           className=" font-medium text-xs flex justify-center items-center text-white bg-[#184ac0b0] px-[14px] py-[14px] rounded-2xl"
-          onClick={() => setSelectedBut("")}
+          onClick={() => seStelectedBut("")}
         >
           <img src={userIcon} alt="" className="w-[14px] h-[14px]" />
         </button>
