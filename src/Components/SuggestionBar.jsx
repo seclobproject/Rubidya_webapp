@@ -22,7 +22,7 @@ const SuggestionBar = () => {
   
     if (suggestUsers.length>0) {
       return (
-        <div className=' flex flex-col w-[400px]  gap-1.5 bg-white bg-opacity-55 px-3  lg:px-4 py-4 overflow-x-scroll rounded-lg font-poppins'>
+        <div className=' flex flex-col w-full   gap-1.5 bg-white bg-opacity-55 px-3  lg:px-4 py-4 overflow-x-scroll rounded-lg font-poppins'>
           <div className='flex flex-row w-full lg:mb-[17px] justify-between'>
             <div className='text-[#1E3167]  font-semibold text-sm lg:text-base'>New People</div>
             {/* <div className='text-[#8996BC]'>see all</div> */}

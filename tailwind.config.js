@@ -18,6 +18,10 @@ export default {
         'xxs1': '8px',  
         'xxs2': '10px',  
       },
+      screens: {
+        'xs': '400px', 
+        'xxs': '320px', 
+      },
     },
   },
   plugins: [],

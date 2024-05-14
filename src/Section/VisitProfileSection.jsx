@@ -57,7 +57,7 @@ const VisitProfileSection = ({profileData }) => {
     <div className=" w-full h-  flex flex-col px-4 pb-6 font-poppins border-b-2 border-slate-300 ">
       
       <div className="flex flex-row justify-between pt-6">
-        <div className="pt- w-[86px] h-[86px] rounded-full">
+        <div className="pt- w-[60px] h-[60px] rounded-full">
           {profileData.profilePic ? (
             <img
               src={profileData.profilePic}

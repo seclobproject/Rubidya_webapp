@@ -1,4 +1,3 @@
-
 import noProfilePic from "../assets/img/noProfile.png";
 import RIcon from "../assets/img/RIcon.png";
 import { ApiCall } from "../Services/Api";
@@ -59,43 +58,48 @@ const SuggestBarCard = ({ user }) => {
   }, [user._id]);
 
   return (
-    <Link to={`/user/${user._id}`}
-      className="relative w-full  h-full py-[11px] bg-[#FFFFFF]   rounded-lg flex flex-row    justify-between items-center  cursor-pointer"
+    <Link
+      to={`/user/${user._id}`}
+      className="relative w-full  h-full py-[11px] bg-[#FFFFFF]   rounded-lg flex  md:flex-col lg:flex-col xl:flex-row    justify-between items-center  cursor-pointer"
       style={{
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
         borderRadius: "4px",
         padding: "1rem",
       }}
     >
-      <div className="absolute top-1 right-1.5 rotate-45 text-2xl text-[#45537A] cursor-pointer" onClick={(e)=>{
-        e.preventDefault();
-        dispatch(removeFromUserSuggestions(user?._id))
-      }}>+</div>
-      <div className="flex flex-row justify-center items-center gap-4">
-      <div className="relative mb-[8px]">
-        {
-          user?.profilePic?.filePath ? <img
-          src={user?.profilePic?.filePath}
-          alt=""
-          className="w-16 h-16 rounded-full"
-        />:  
-        <img src={noProfilePic} alt="" className="w-16 h-16 rounded-full" />
-        }
-        <img
-          src={RIcon}
-          alt=""
-          className="absolute -right-1 -bottom-1 w-6 h-6"
-        />
+      <div
+        className="absolute top-1 right-1.5 rotate-45 text-2xl text-[#45537A] cursor-pointer"
+        onClick={(e) => {
+          e.preventDefault();
+          dispatch(removeFromUserSuggestions(user?._id));
+        }}
+      >
+        +
       </div>
-      <div className="text-[#1E3167] text-xs mb-[6px]">
-        {user?.firstName}
+      <div className="flex lg:flex-col xl:flex-row justify-center items-center gap-4">
+        <div className="relative mb-[8px]">
+          {user?.profilePic?.filePath ? (
+            <img
+              src={user?.profilePic?.filePath}
+              alt=""
+              className="w-16 h-16 rounded-full"
+            />
+          ) : (
+            <img src={noProfilePic} alt="" className="w-16 h-16 rounded-full" />
+          )}
+          <img
+            src={RIcon}
+            alt=""
+            className="absolute -right-1 -bottom-1 w-6 h-6"
+          />
+        </div>
+        <div className="text-[#1E3167] text-xs mb-[6px]">{user?.firstName}</div>
       </div>
-      </div>
-      
+
       <div className="">
         {!status && (
           <button
-            className="text-white bg-[#45537A] rounded-md py-1 px-6 text-xxs2"
+            className="text-white bg-[#45537A]  rounded-md py-1 px-6 text-xxs2"
             onClick={handleFollow}
             disabled={Loading}
           >

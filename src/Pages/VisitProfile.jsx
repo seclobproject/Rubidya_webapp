@@ -42,7 +42,7 @@ const VisitProfile = () => {
     )
   }
   return (
-    <div className="w-full lg:w-[500px] h-full py-4 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px] ">
+    <div className="`w- sm:[380px] md:[400px] lg:w-[500px] h-full py-4 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px] ">
       <div className="w-full h-fit bg-white ">
         <div className="flex w-full justify-between px-5 py-5">
           <div
