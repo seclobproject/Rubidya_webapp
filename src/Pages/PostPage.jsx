@@ -36,7 +36,7 @@ let uniqueData = response?.data?.posts.filter(item => {
           setHasMore(false);
         }
       }
-      console.log(response?.data?.posts)
+      // console.log(response?.data?.posts)
       // console.log(latestPosts);
     } catch (error) {
       // setIsLoading(false);

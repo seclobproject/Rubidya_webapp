@@ -64,7 +64,7 @@ const ProfileSection = ({ seStelectedBut, postCount, profilePic }) => {
       <div className="flex flex-row  py-2 justify-between">
         <button
           className=" font-medium text-xs flex justify-center items-center text-white bg-[#184AC0] px-7 lg:px-9 py-3 rounded-2xl"
-          onClick={() => seStelectedBut("edit")}
+          onClick={() => seStelectedBut("")}
         >
           Edit profile
         </button>

@@ -71,7 +71,7 @@ const Profile = () => {
   },[])
   
   return (
-    <div className={`w-full sm:[380px] md:[400px] lg:w-[500px] h-screen py-2 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px]
+    <div className={`w-full sm:[380px] md:[400px] lg:w-[500px] h-full py-2 px-2 lg:px-10 bg-white rounded-t-lg transform transition-all ease-in-out  duration-500 lg:mt-[90px]
    
      `}
      >
@@ -84,10 +84,10 @@ const Profile = () => {
         </div>
       </div>
         {/* ${showProfile ? "translate-x-0":"-translate-x-full" } */}
-      {/* {selectedBut==="" && <ProfileSection seStelectedBut={setSelectedBut}  postCount={postCount} profilePic={profilePic}/>}
+      {selectedBut==="" && <ProfileSection seStelectedBut={setSelectedBut}  postCount={postCount} profilePic={profilePic}/>}
       {(selectedBut==="" && posts) &&  <PostSection postData={posts} fetchPosts={fetchPosts} page={page} hasMore={hasMore}/>}
-      {selectedBut==="wallet" &&  <PayIdSection/>} */}
-      <WalletSection/>
+      {selectedBut==="wallet" &&  <WalletSection/>}
+      
      
     </div>
   )
