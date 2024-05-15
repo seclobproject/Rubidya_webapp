@@ -9,7 +9,7 @@ import bookmarkIcon from "../assets/img/bookmark.png";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ApiCall } from "../Services/Api";
-import { deleteCommentByCommentOwner, likeAPost, postComment } from "../Utils/Constants";
+import { deleteCommentByCommentOwner, getComment, likeAPost, postComment } from "../Utils/Constants";
 import "./SinglePost.css";
 import { Link } from "react-router-dom";
 import SingleComment from "./SingleComment";
@@ -20,6 +20,7 @@ const SinglePost = ({ postData }) => {
   const [timeDifference, setTimeDifference] = useState();
   const [liked, setLiked] = useState(false);
   const [animateLiked, setAnimatedLike] = useState(false);
+  const [comments,setCommments]=useState([])
   const [isCommentOn, setIsCommentOn] = useState(false);
   const [commentContent, setCommentContent] = useState([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -66,14 +67,15 @@ const SinglePost = ({ postData }) => {
         comment: commentContent,
       });
       if (response?.data?.sts === "01") {
-        postData.commentId.push(response?.data?.comment);
-        postData.commentCount++;
+        
         setCommentContent("");
       }
 
       console.log(response);
     } catch (error) {
       console.log(error);
+    }finally{
+      loadComment()
     }
   };
   const handleDeleteCommentByOwner = async (id) => {
@@ -96,6 +98,21 @@ const SinglePost = ({ postData }) => {
     }
   };
 
+  const loadComment = async () => {
+    try {
+      const response = await ApiCall("get", `${getComment}/${postData._id}`);
+      if (response?.data?.status === "01") {
+        setCommments(response?.data?.results || []);
+      } else {
+        setCommments([]); // Ensure comments state is always an array
+      }
+    } catch (error) {
+      console.error(error);
+      setCommments([]); // Ensure comments state is always an array even on error
+    }
+  }
+  
+
   useEffect(() => {
     // console.log(postData.likedBy);
     postData.likedBy.forEach((element) => {
@@ -104,6 +121,7 @@ const SinglePost = ({ postData }) => {
       }
       // setComments(postData?.commentId)
     });
+    
 
     const calculateTimeDifference = () => {
       const updatedAtTime = new Date(postData?.createdAt);
@@ -132,10 +150,14 @@ const SinglePost = ({ postData }) => {
 
     // Call calculateTimeDifference function
     calculateTimeDifference();
-  }, [commentContent]);
+  }, []);
+
+  useEffect(()=>{
+    loadComment()
+  },[isCommentOn])
   return (
     <div
-      className="relative w-full xs:w-[300px] sm:w-[400px] md:w-[500px] lg:w-[525px] h-fit bg-white py-[22px] px-2 lg:px-5 flex items-start justify-center lg:rounded-xl"
+      className="relative w-full xs:w-[300px] sm:w-[400px] md:w-[500px] lg:w-[525px] h-fit bg-white py-[22px] px-2 lg:px-5 flex items-start justify-center lg:rounded-xl overflow-visible"
       style={{ boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.2)" }}
     >
       <div className=" flex flex-col h-fit w-full gap-2.5 bg--400 overflow-hidden">
@@ -207,13 +229,13 @@ const SinglePost = ({ postData }) => {
             />
             {isCommentOn && (
               <div
-                className={`absolute z-10 left-0 right-0 bottom-0 bg-white w-[525px] h-fit rounded-[40px] px-5 pt-7 flex flex-col transform transition-all ease-in-out duration-300 ${
+                className={`absolute z-10 left-0 right-0 bottom-0 bg-white w-full xs:w-[300px] sm:w-[400px] md:w-[500px] lg:w-[525px] h-fit rounded-[40px] px-5 pt-7 flex flex-col transform transition-all ease-in-out duration-300 ${
                   isCommentOn ? "-translate-y-0" : "translate-y-full"
                 }`}
               >
                 <div className="flex flex-row justify-between text-[#7E7C7C]">
                   <div className="">
-                    View all {postData?.commentCount} comments{" "}
+                    View all {comments[0].commentCount} comments{" "}
                   </div>
                   <div
                     className="rotate-45 text-2xl cursor-pointer "
@@ -223,7 +245,7 @@ const SinglePost = ({ postData }) => {
                   </div>
                 </div>
                 <div className="custom-scrollbar flex flex-col w-full h-64 overflow-y-scroll ">
-                  {postData?.commentId?.map((comment, index) => {
+                  {comments && comments.map((comment, index) => {
                     return <SingleComment key={index} data={comment} handleDeleteCommentByOwner={handleDeleteCommentByOwner} confirmLoading={confirmLoading} />;
                   })}
                 </div>

@@ -15,8 +15,10 @@ export const likeAPost="/api/posts/like"
 export const uploadImage="/api/users/upload-image"
 export const allUsers="/api/users/all-users"
 export const getUser="/api/users/get-user/"
+export const getComment="/api/posts/get-comment-details/"
 export const postComment="/api/posts/post-comment"
 export const deleteCommentByCommentOwner="/api/posts/delete-comment/"
+export const getAllPackages="/api/users/get-packages"
 
 
 

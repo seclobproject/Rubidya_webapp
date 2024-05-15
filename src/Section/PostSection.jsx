@@ -2,6 +2,7 @@ import React from 'react'
 import SinglePostCard from '../Components/SinglePostCard'
 import noPostIcon from '../assets/img/nopost.png'
 import InfiniteScroll from "react-infinite-scroll-component";
+import { ClipLoader } from 'react-spinners';
 const PostSection = ({postData,fetchPosts,page,hasMore}) => {
   console.log(postData);
   if (postData.length===0) {
@@ -22,13 +23,12 @@ const PostSection = ({postData,fetchPosts,page,hasMore}) => {
     dataLength={postData.length}
         next={()=>fetchPosts(page)}
         hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={<ClipLoader size={25} color='black' />}
         endMessage={<p></p>}
      className='grid grid-cols-3 gap-1 lg:gap-4 pb-32  justify-center items-center '>
       {postData && postData.map((single,index)=>{
         return <SinglePostCard data={single} key={index}/>
       })}
-      
      </InfiniteScroll>
    </div>
   </div>
